@@ -1,0 +1,377 @@
+
+/* ----------------------------------------------------
+   🌈 ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ СТИЛЯ
+---------------------------------------------------- */
+:root {
+    --glass-bg: rgba(255, 255, 255, 0.55);
+    --glass-blur: blur(14px);
+    --glass-border: rgba(255, 255, 255, 0.4);
+
+    --bubble: linear-gradient(135deg, #ff8af0, #a06bff);
+    --bubble-shadow: rgba(150, 60, 255, 0.35);
+
+    --text-main: #3b0066;
+    --text-muted: #666;
+
+    --card-radius: 22px;
+    --card-shadow: 0 8px 24px rgba(0,0,0,0.12);
+
+    font-family: "Inter", "Segoe UI", Arial;
+}
+
+
+/* ----------------------------------------------------
+   📌 ФОН
+---------------------------------------------------- */
+body {
+    margin: 0;
+    padding: 0;
+    background: url("https://img.freepik.com/premium-vector/background-school-school-theme-school-doodles-inscription-notebook-training-lessons_497922-899.jpg")
+        no-repeat center center fixed;
+    background-size: cover;
+    backdrop-filter: blur(2px);
+    font-family: "Inter", sans-serif;
+}
+header{
+    display: flex;
+    justify-content: space-around;
+    margin: 2%;
+}
+
+/* ----------------------------------------------------
+   🌈 СТИЛЬ ШАПКИ НЕДЕЛИ + BUBBLE STYLED ARROWS
+---------------------------------------------------- */
+
+.week-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+    margin: 28px 0;
+}
+
+/* 🔮 Bubble-кнопки */
+.grad-btn {
+    background: var(--bubble);
+    border: none;
+    padding: 12px 22px;
+    border-radius: 50px;
+    color: #fff;
+    font-size: 26px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px var(--bubble-shadow);
+    transition: 0.25s ease;
+}
+
+.grad-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 26px rgba(150, 60, 255, 0.55);
+}
+
+.grad-btn:active {
+    transform: scale(0.88);
+}
+
+/* Дата недели: Понедельник — Пятница */
+#weekLabel {
+    font-size: 32px;
+    font-weight: 800;
+    color: #8811cc;
+    letter-spacing: 0.5px;
+    text-shadow: 0 3px 8px rgba(0,0,0,0.25);
+}
+
+
+/* ----------------------------------------------------
+   📦 GRID ДЛЯ КАРТОЧЕК ДНЕЙ
+---------------------------------------------------- */
+
+.days-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding-bottom: 50px;
+}
+
+
+/* ----------------------------------------------------
+   🧊 GLASS CARD — карточка дня (Bubble Glass)
+---------------------------------------------------- */
+
+.day-card {
+    width: 350px;
+    padding: 18px;
+    border-radius: var(--card-radius);
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--card-shadow);
+    transition: 0.25s ease;
+}
+
+.day-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 32px rgba(0,0,0,0.18);
+}
+
+/* Заголовок дня */
+.day-card h3 {
+    margin: 0 0 12px;
+    font-size: 20px;
+    color: var(--text-main);
+}
+
+.day-date {
+    font-size: 14px;
+    color: var(--text-muted);
+}
+
+/* Таблица уроков */
+.lesson-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+}
+
+.lesson-table th {
+    font-size: 13px;
+    color: #444;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 6px;
+    text-align: left;
+}
+
+.lesson-table td {
+    padding: 6px 2px;
+    border-bottom: 1px solid rgba(255,255,255,0.35);
+    font-size: 14px;
+    color: #333;
+}
+
+.lesson-table tr:hover {
+    background: rgba(255,255,255,0.3);
+}
+
+
+/* ----------------------------------------------------
+   🟣 BUBBLE TASK STYLE — стиль списка задач
+---------------------------------------------------- */
+
+/* ============================
+      ЗАДАЧИ — Bubble Glass
+============================ */
+
+/* Контейнер всех задач под днём */
+.day-tasks {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Одна задача */
+.task-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 10px 14px;
+    border-radius: 12px;
+
+    background: rgba(255,255,255,0.55);
+    backdrop-filter: blur(8px);
+
+    box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+
+    transition: transform .15s, box-shadow .15s;
+}
+
+.task-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+/* Чекбокс */
+.task-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #9b4bff; /* красивый фиолетовый */
+}
+
+/* Текст задачи */
+.task-item span {
+    flex-grow: 1;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Кнопка удаления задачи */
+.task-del {
+    background: #ff5c5c;
+    color: white;
+    border: none;
+    border-radius: 10px;
+
+    padding: 4px 8px;
+    font-size: 13px;
+    cursor: pointer;
+
+    transition: background .2s, transform .1s;
+}
+.task-del:hover {
+    background: #ff2c2c;
+}
+.task-del:active {
+    transform: scale(0.9);
+}
+
+/* Кнопка "добавить задачу" */
+.task-add-btn {
+    margin-top: 8px;
+
+    background: linear-gradient(135deg, #8a2be2, #d96bff);
+    color: white;
+    border: none;
+
+    padding: 8px 14px;
+    border-radius: 12px;
+
+    font-size: 14px;
+    cursor: pointer;
+
+    box-shadow: 0 4px 12px rgba(138,43,226,.4);
+    transition: .25s;
+}
+.task-add-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(138,43,226,.55);
+}
+.task-add-btn:active {
+    transform: scale(.93);
+}
+
+
+
+/* ----------------------------------------------------
+   MODAL — bubble glass, soft popup
+---------------------------------------------------- */
+
+/* затемнение фона */
+.rs-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);  /* мягкий тёмный фон */
+    backdrop-filter: blur(4px);      /* лёгкое размытие */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s ease;
+}
+
+/* активное состояние */
+.rs-modal:not(.hidden) {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* фон для закрытия */
+.modal-bg {
+    position: absolute;
+    inset: 0;
+}
+
+/* коробка */
+.modal-box {
+    position: relative;
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: blur(10px);
+    padding: 26px;
+    width: 320px;
+
+    border-radius: 22px;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.25);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;      /* ⬅ центруем ВСЁ внутри */
+    gap: 14px;
+
+    animation: modalFade 0.25s ease-out;
+}
+
+/* анимация появления */
+@keyframes popup {
+    from { transform: scale(.8); opacity: 0; }
+    to   { transform: scale(1); opacity: 1; }
+}
+
+.modal-box h3 {
+    margin: 0 0 14px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #6b21a8;
+}
+
+/* Поля в колонку */
+.modal-box label {
+    margin: 10px 0 4px;
+    font-size: 14px;
+    color: #444;
+}
+
+.modal-box input,
+.modal-box textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(8px);
+    font-size: 15px;
+    resize: none;
+    margin-bottom: 6px;
+}
+
+/* Кнопки */
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 14px;
+}
+
+.modal-buttons button {
+    flex: 1;
+    margin-right: 10px;
+
+    padding: 10px 14px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    cursor: pointer;
+
+    transition: .2s ease;
+}
+
+#modal-save {
+    background: linear-gradient(135deg, #6b21a8, #b832d7);
+    color: white;
+}
+#modal-save:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(111,0,255,0.4);
+}
+
+#modal-cancel {
+    background: #ddd;
+    color: #333;
+}
+#modal-cancel:hover {
+    background: #ccc;
+    transform: translateY(-2px);
+}
