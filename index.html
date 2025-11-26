@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
-<base href="/raspisanie/">
+<!-- <base href="/raspisanie/"> -->
+
 <head>
   <meta charset="utf-8">
   <title>Schedule</title>
@@ -25,8 +26,12 @@
       ...
     </div>
   </div>
-  
 
+  <script>
+    if (location.hostname === "ksushatarasenko.github.io") {
+      document.write('<base href="/raspisanie/">');
+    }
+  </script>
   <script type="module" src="./scripts/app.js"></script>
 </body>
 

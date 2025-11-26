@@ -1,32 +1,41 @@
 // scripts/scheduleData.js
-// работа с таблицей schedules
-import { supabase } from './supabaseClient.js';
+;
 
 // Загружаем строку schedules по weekStart (в таблице у тебя week_start как text)
+import { supabase } from './supabaseClient.js';
+import { TEMPLATE_WEEK } from './templateWeek.js';
+
+// Загружаем расписание
 export async function loadSchedule(weekStart) {
-    console.log("loadSchedule called with weekStart:", weekStart);
+  const { data, error } = await supabase
+    .from('schedules')
+    .select('*')
+    .eq('week_start', weekStart)
+    .maybeSingle();
 
-    const normalized = String(weekStart).trim(); // твой weekStart уже "YYYY-MM-DD"
-    console.log("Normalized weekStart:", normalized);
+  // ❗ Если ошибка или пусто → создаём новую неделю по шаблону
+  if (!data) {
+    console.warn("Неделя пустая — создаём по шаблону:", weekStart);
 
-    const { data, error } = await supabase
-        .from('schedules')
-        .select('*')
-        .eq('week_start', normalized);
+    const copy = JSON.parse(JSON.stringify(TEMPLATE_WEEK));
 
-    if (error) {
-        console.error("Supabase error on loadSchedule:", error);
-        return null;
+    const { data: inserted, error: insertError } = await supabase
+      .from('schedules')
+      .insert([{ week_start: weekStart, data: copy }])
+      .select()
+      .single();
+
+    if (insertError) {
+      console.error("Ошибка создания новой недели:", insertError);
+      return null;
     }
 
-    if (!data || data.length === 0) {
-        console.log("No schedule row found for", normalized);
-        return null;
-    }
+    return inserted; // вернём созданную
+  }
 
-    console.log("Found schedule row:", data[0]);
-    return data[0]; // возвращаем полную строку { id, week_start, data, ... }
+  return data;
 }
+
 
 // Сохраняем/обновляем расписание — ВАЖНО: onConflict: 'week_start' чтобы обновлять существующую строку
 export async function saveLesson(weekStart, updatedData) {
