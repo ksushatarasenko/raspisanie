@@ -375,3 +375,14 @@ header{
     background: #ccc;
     transform: translateY(-2px);
 }
+/* -------------------------
+   Подсветка текущего дня
+---------------------------- */
+
+.today-highlight {
+    border: 3px solid #ff6bd6;
+    background: #ffe8f7;
+    box-shadow: 0 0 15px rgba(255, 105, 180, 0.4);
+    transform: scale(1.02);
+    transition: 0.25s;
+}

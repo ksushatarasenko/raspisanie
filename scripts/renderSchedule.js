@@ -170,6 +170,13 @@ export async function renderSchedule(weekStart) {
     card.className = 'day-card';
 
     const dateObj = weekDates[dayIndex];
+     // ⭐ Подсветка текущего дня
+    const todayStr = formatDate(new Date());   // YYYY-MM-DD сегодня
+    const thisDayStr = formatDate(dateObj);    // YYYY-MM-DD для этого дня
+
+    if (todayStr === thisDayStr) {
+        card.classList.add("today-highlight");
+    }
 
     // Заголовок дня
     card.innerHTML = `
